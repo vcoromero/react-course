@@ -5,17 +5,23 @@ import { mockGifs } from "./mock-data/gif.mock"
 import { CustomHeader } from "./shared/components/CustomHeader"
 import { SearchBar } from "./shared/components/SearchBar"
 
-const searches = ['Hollow knigt', 'Silksong', 'Hades']
 export const GifApp = () => {
 
-    const [previousTerms, setPreviousTerms] = useState(searches)
+    const [previousTerms, setPreviousTerms] = useState(['Hollow Knigth'])
 
     const handleTermClicked = (term: string) => {
         console.log({ term })
     }
 
-    const handleSearch = (query: string) => {
-        console.log({ query })
+    const handleSearch = (query: string = '') => {
+        query = query.toLocaleLowerCase().trim()
+        if (query.length === 0) return
+
+        if (previousTerms.includes(query)) return
+
+        setPreviousTerms([query, ...previousTerms.splice(0, 7)])
+
+
     }
 
     return (
